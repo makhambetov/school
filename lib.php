@@ -15,7 +15,7 @@ function getAve($class_id)
     $link = connect_db();
     $res = mysqli_query($link, "SELECT AVG(mark) AS markAvg FROM students WHERE class_id = '" . $class_id . "'");
     $avg =  mysqli_fetch_array($res)[0];
-    $qRes = mysqli_query($link, "UPDATE classes SET av_mark = " . $avg . " WHERE id = '" . $class_id ."'");
+    $qRes = mysqli_query($link, "UPDATE classes SET av_mark = " . $avg . " WHERE name = '" . $class_id ."'");
     if($qRes) return $avg;
     return false;
 }

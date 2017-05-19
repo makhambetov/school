@@ -50,7 +50,7 @@ var vm = new Vue({
             $('.content-item').attr('hidden', '');
             $('.class-profile, .classes').removeAttr('hidden');
             this.classes.forEach(function (p1) {
-                if (p1.id == this.selected.class_id)
+                if (p1.name == this.selected.class_id)
                     this.selected = p1;
             }.bind(this));
             this.indexOfSelected = this.classes.indexOf(this.selected);
@@ -73,7 +73,7 @@ var vm = new Vue({
 
         },
         edit:function () {
-            this.editing = this.selected;//Object.assign({}, this.selected);;
+            this.editing = this.selected;//Object.assign({}, this.selected);
             this.option = 'edit';
         },
         save:function (list) {
@@ -157,7 +157,6 @@ var vm = new Vue({
                 if(list === this.students) var req = "q=remove_s";
                 if(list === this.classes)  var req = "q=remove_c";
                 console.log(req)
-
                 $.ajax({
                     url:"updateDB.php",
                     method:"POST",
@@ -208,9 +207,13 @@ var vm = new Vue({
         $.ajax({
             url:'loadDB.php?loadDB=students',
             method:"GET",
-            success:function (data) {
+            success:function (data) {   
                 // console.log(data)
-                this.students = JSON.parse(data)
+                this.students = JSON.parse(data);
+                this.students.forEach(function(obj){
+                    if (obj.start_date == '0000-00-00') obj.start_date = '-'
+                    if (obj.end_date == '0000-00-00') obj.end_date = '-'
+                });
             }.bind(this)
         });
     }

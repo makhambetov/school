@@ -9,7 +9,7 @@
         <div class="panel-heading"><b>Список классов: </b></div>
         <div class="panel-body">
             <ol class="list-group">
-                 <li class="list-group-item" v-for="item in classes" @click="showClass(item)"><span><b>{{item.id}}</b> &nbsp;&nbsp;| &nbsp;&nbsp; Класс.рук: {{item.teacher_name}}</span></li>
+                 <li class="list-group-item" v-for="item in classes" @click="showClass(item)"><span><b>{{item.name}}</b> &nbsp;&nbsp;| &nbsp;&nbsp; Класс.рук: {{item.teacher_name}}</span></li>
             </ol>
             <div class="btn-group pull-right">
                 <div class="btn btn-primary" @click="add" data-toggle="modal" data-target="#modal_class">Добавить</div>
@@ -60,7 +60,7 @@
                         <div class="input-group">
                             <div class="input-group-addon">Класс</div>
                             <select class="form-control" v-model="editing.class_id">
-                                <option v-for="item in classes" :value="item.id">{{item.id}}</option>
+                                <option v-for="item in classes" :value="item.name">{{item.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon">Класс</div>
-                            <input type="text" class="form-control" v-model="editing.id">
+                            <input type="text" class="form-control" v-model="editing.name">
                         </div>
                     </div>
                 </form>

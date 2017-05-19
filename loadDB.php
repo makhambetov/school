@@ -13,7 +13,7 @@ if (isset($_GET["loadDB"]))
 
         //формируем строку json
         while ($row = mysqli_fetch_array($res))
-            $arr[] = '{"id":"' . $row["id"] . '","teacher_name":"' . $row["teacher_name"] .
+            $arr[] = '{"id":"' . $row["id"] . '","name":"'. $row["name"] . '","teacher_name":"' . $row["teacher_name"] .
                 '","av_mark":"' . $row["av_mark"] . '","stud_count":"' . $row["students_count"] . '"}';
 
         $json = "[" . implode(",", $arr) . "]";

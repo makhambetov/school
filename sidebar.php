@@ -7,9 +7,8 @@
 
 
     <div  class="class-profile content-item" hidden>
-
         <div class="panel panel-info">
-            <div class="panel-heading"><b>{{selected.id}}</b></div>
+            <div class="panel-heading"><b>{{selected.name}}</b></div>
             <table class="table table-bordered">
                 <tr><td>Классный руководитель</td><td>{{selected.teacher_name}}</td></tr>
                 <tr><td>Средний балл</td><td>{{selected.av_mark}}</td></tr>
@@ -21,7 +20,7 @@
             <div class="panel-heading"><b>Список учеников класса:</b></div>
             <div class="panel-body">
                 <ol class="list-group" >
-                    <li class="list-group-item" v-for="item in students" v-if="item.class_id==selected.id" @click="showClassesStudent(item)">{{item.student_name}}</li>
+                    <li class="list-group-item" v-for="item in students" v-if="item.class_id==selected.name" @click="showClassesStudent(item)">{{item.student_name}}</li>
                 </ol>
             </div>
         </div>

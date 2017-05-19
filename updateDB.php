@@ -22,11 +22,13 @@ if(isset($_POST))
 
     if($_POST["q"]=="edit_s")
     {
+        if($data["start_date"] == '') $data["start_date"] = null;
+        if($data["end_date"] == '') $data["end_date"] = null;
         $qRes = mysqli_query($link, "UPDATE students SET student_name = '" . $data["student_name"] .
             "', class_id = '" .$data["class_id"]. "', mark = '" . $data["mark"].
             "', start_date = '" . $data["start_date"] . "', end_date = '" . $data["end_date"] . "' WHERE id = '" . $data['id'] . "'");
-        //echo "<p>Added</p> <br>" . $data["student_name"] . $qRes;
-        echo getAve($data["class_id"]);
+        echo "<p>Added</p> <br>" . $data["end_date"];
+        //echo getAve($data["class_id"]);
     }
 
     if ($_POST["q"]=="remove_s")
@@ -49,8 +51,8 @@ if(isset($_POST))
 
     if($_POST["q"]=="edit_c")
     {
-        $qRes = mysqli_query($link, "UPDATE classes SET id = '" . $data["id"] .
-            "', teacher_name = '" .$data["teacher_name"]. "' WHERE id = '" . $_POST["oldId"] ."'");
+        $qRes = mysqli_query($link, "UPDATE classes SET name = '" . $data["name"] .
+            "', teacher_name = '" .$data["teacher_name"]. "' WHERE id = '" . $data["id"] ."'");
         //echo "<p>Added</p> <br>" . $data["student_name"] . $qRes;
         echo $data["id"] . $qRes;
     }

@@ -1,52 +1,54 @@
-var profileModel =
+/*var profileModel =
     {
         name:'',
         class:0,
         mark:0,
         start:'',
         end:''
-    };
-var editing = {};
+    };*///var editing = {};
+//инициализация объекта Vue
 var vm = new Vue({
-    el: '#app',
+    el: '#app',             //HTML элемент присваивания Vue
+    //переменные объекта Vue
     data: {
-        classes: [],
-        students:[],
-        indexOfSelected:0,
-        selected: {},
-        editing:{},
-        option:''
+        classes: [],        //массив со списком учеников
+        students:[],        //массив со списком классов
+        indexOfSelected:0,  //индекс выделенного элемента(ученик или класс)
+        selected: {},       //выбранный элемент(ученик или класс)
+        editing:{},         //изменяемый элемент(ученик или класс)
+        option:''           //модификатор для функции сохранения (новый элемент или редактируемый)
     },
+    //методы объекта Vue
     methods: {
-        selectClasses:function (e) {
+        selectClasses:function (e) {    //функция-обработчик отображает список классов
             e.preventDefault();
            $('.list-group-item').removeClass('active')
            $('#m_classes').addClass('active')
            $('.content-item').attr('hidden', '');
            $('.classes').removeAttr('hidden');
         },
-        selectStudents:function(e){
+        selectStudents:function(e){     //функция-обработчик отображает список учеников
             e.preventDefault();
             $('.menu-item').removeClass('active')
             $('#m_students').addClass('active')
             $('.content-item').attr('hidden', '');
             $('.students').removeAttr('hidden');
         },
-        showClass:function (item) {
+        showClass:function (item) {     //функция-обработчик отображает профиль класса
             $('.content-item').attr('hidden', '');
             $('.class-profile, .classes').removeAttr('hidden');
             this.indexOfSelected = this.classes.indexOf(item);
             this.selected =  item;
             this.setClass('classes');
         },
-        showStudent:function (item) {
+        showStudent:function (item) {   //функция-обработчик отображает профиль ученика
             $('.content-item').attr('hidden', '');
             $('.student-profile, .students').removeAttr('hidden');
             this.indexOfSelected = this.students.indexOf(item);
             this.selected = item;
             this.setClass('students');
         },
-        showStudentsClass:function () {
+        showStudentsClass:function () { //функция-обработчик отображает профиль класса выбранного ученика
             $('.content-item').attr('hidden', '');
             $('.class-profile, .classes').removeAttr('hidden');
             this.classes.forEach(function (p1) {
@@ -58,7 +60,7 @@ var vm = new Vue({
             $('#m_students').removeClass('active');
             $('#m_classes').addClass('active')
         },
-        showClassesStudent:function (item) {
+        showClassesStudent:function (item) {//функция-обработчик отображает профиль ученика выбранного класса
             $('.content-item').attr('hidden', '');
             $('.student-profile, .students').removeAttr('hidden');
             this.selected = item;
@@ -67,16 +69,19 @@ var vm = new Vue({
             $('#m_classes').removeClass('active');
             $('#m_students').addClass('active')
         },
-        add:function () {
+        add:function () {   //функция-обработчик на кнопку ДОБАВИТЬ
             this.editing = {};//Object.assign({}, profileModel);
             this.option = 'new';
-
         },
-        edit:function () {
+        edit:function () {  //функция-обработчик на кнопку ИЗМЕНИТЬ
             this.editing = this.selected;//Object.assign({}, this.selected);
             this.option = 'edit';
         },
+
+        //функция-обработчик на кнопку СОХРАНИТЬ. Принимает массив элементов в качестве аргумента
         save:function (list) {
+
+            //Запрос на добавление нового элемента
             if(this.option === 'new'){
                 if(list === this.students) var req = "q=new_s";
                 if(list === this.classes)  var req = "q=new_c";
@@ -92,6 +97,8 @@ var vm = new Vue({
                     });
                 }
             }
+
+            //Запрос на изменение выбранного элемента
             if(this.option === 'edit'){
                 if(list === this.students) var req = "q=edit_s";
                 if(list === this.classes)  var req = "q=edit_c";
@@ -114,6 +121,8 @@ var vm = new Vue({
                 });
             }
         },
+
+        //функция-обработчик на кнопку УДАЛИТЬ. Принимает массив элементов в качестве аргумента
         remove:function (list) {
             if(this.selected.stud_count > 0){
                 alert("Не пустой класс не может быть удален");
@@ -139,30 +148,16 @@ var vm = new Vue({
                     this.selected = {}
             }
         },
-/*        remove:function (list) {
-            if(this.students.length)
-                var confirmed = confirm('Действительно удалить?');
-            if(confirmed){
-                this.students.splice(this.indexOfSelected, 1);
-                $.ajax({
-                    url:"updateDB.php",
-                    method:"POST",
-                    data:"q=remove_s&id=" + this.selected.id + "&class_id=" +this.selected.class_id
-                });
-                if(this.indexOfSelected != 0)
-                    this.indexOfSelected--;
-                if(this.students.length)
-                    this.selected = this.students[this.indexOfSelected];
-                else
-                    this.selected = {}
-            }
-        },*/
+
+        //функция присваивает CSS класс выбранному элементу
+        //принимает арумент - группу элементов
         setClass:function (group) {
             $("."+ group + " .list-group-item").removeClass("selected");
             $("."+ group + " .list-group-item").eq(this.indexOfSelected).addClass("selected");
         },
     },
     mounted:function(){
+        //загрузка данных с БД
         $.ajax({
             url:'loadDB.php?loadDB=classes',
             method:"GET",

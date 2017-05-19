@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * Загрузка с БД
+ * */
 include "lib.php";
 $link = connect_db();
 

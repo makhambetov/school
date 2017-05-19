@@ -10,12 +10,14 @@ function connect_db()
     return $link;
 }
 
-function getAve($class_id)
+//вычисление и возврат среднего балла класса
+//аргумент - название класса
+function getAve($class_name)
 {
     $link = connect_db();
-    $res = mysqli_query($link, "SELECT AVG(mark) AS markAvg FROM students WHERE class_id = '" . $class_id . "'");
+    $res = mysqli_query($link, "SELECT AVG(mark) AS markAvg FROM students WHERE class_id = '" . $class_name . "'");
     $avg =  mysqli_fetch_array($res)[0];
-    $qRes = mysqli_query($link, "UPDATE classes SET av_mark = " . $avg . " WHERE name = '" . $class_id ."'");
+    $qRes = mysqli_query($link, "UPDATE classes SET av_mark = " . $avg . " WHERE name = '" . $class_name ."'");
     if($qRes) return $avg;
     return false;
 }

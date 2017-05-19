@@ -3,7 +3,7 @@
 //подключение к базе данных
 function connect_db()
 {
-    $link = mysqli_connect("localhost","root","999")
+    $link = mysqli_connect("localhost","root","")
     or die("Data base connection error");
     mysqli_select_db($link, "school");
     mysqli_set_charset($link, "utf8");

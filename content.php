@@ -1,6 +1,6 @@
 <div class="col-md-8 col-sm-12 jumbotron content-item">
     <h1>My School</h1>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
 </div>
 
 

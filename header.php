@@ -12,8 +12,8 @@
 <body>
 <div id="app">
 <div class="container">
-    <div class="page-header">
-        <h2>Школа</h2>
+    <div class="page-header bg-primary">
+        <h2 >Школа</h2>
     </div>
     <div class="row">
         <div class="col-md-4 col-sm-12">
